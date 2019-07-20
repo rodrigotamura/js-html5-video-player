@@ -5,6 +5,8 @@ const progressBar = player.querySelector('.progress__filled');
 const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
+const fullScreen = player.querySelector('.player__full');
+const body = document.querySelector('body');
 
 function togglePlay() {
     /**
@@ -12,8 +14,10 @@ function togglePlay() {
      */
     if(video.paused) {
         video.play();
+        body.classList.add('body-playing');
     }else{
         video.pause();
+        body.classList.remove('body-playing');
     }
 
     // or you can do the follow:
@@ -43,7 +47,6 @@ function handleRangeUpdate() {
     /**
      * when user changes range sliders (volume and playback rate)
      */
-    console.log(this.name, this.value);
     video[this.name] = this.value;
 }
 
@@ -68,6 +71,18 @@ function setProgress(e) {
     video.currentTime = scrubTime;
 }
 
+function toggleFull() {
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.mozRequestFullScreen) { /* Firefox */
+        video.mozRequestFullScreen();
+      } else if (video.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) { /* IE/Edge */
+        video.msRequestFullscreen();
+      }
+}
+
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton); // when video plays
 video.addEventListener('pause', updateButton); // when video pauses
@@ -88,3 +103,5 @@ progress.addEventListener('mousemove',
                             (e) => mousedown && setProgress(e)); // when we mouse over the progress bar
 progress.addEventListener('mousedown', () => mousedown = true);
 progress.addEventListener('mouseup', () => mousedown = false);
+
+fullScreen.addEventListener('click', toggleFull);

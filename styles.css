@@ -12,10 +12,15 @@ html {
     display: flex;
     background: #7A419B;
     min-height: 100vh;
-    background: linear-gradient(135deg, #7c1599 0%,#921099 48%,#7e4ae8 100%);
+    background: linear-gradient(135deg, #171599 0%,#106799 48%,#03222e 100%);
     background-size: cover;
     align-items: center;
     justify-content: center;
+    transition: all 0.5s
+  }
+
+  .body-playing {
+    background: Black;
   }
   
   .player {
@@ -42,7 +47,7 @@ html {
     width: 100%;
   }
   
-  .player__button {
+  .player__button, .player__full {
     background: none;
     border: 0;
     line-height: 1;
@@ -52,6 +57,13 @@ html {
     padding: 0;
     cursor: pointer;
     max-width: 50px;
+    transition: all 0.2s
+  }
+
+  .player__controls > button:hover{
+      background: white;
+      color: black;
+      opacity: 0.5
   }
   
   .player__button:focus {
